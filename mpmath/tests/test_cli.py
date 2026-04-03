@@ -14,6 +14,10 @@ if platform.python_implementation() == 'PyPy':
                 allow_module_level=True)
 
 
+if sys.version_info >= (3, 15):
+    pytestmark = pytest.mark.filterwarnings("ignore:.*:DeprecationWarning")
+
+
 def test_bare_console_no_bare_division():
     c = Console(f'{sys.executable} -m mpmath --no-ipython '
                 '--no-wrap-floats --int-limits')  # for coverage
