@@ -279,22 +279,22 @@ def _rootof1(ctx, k, n):
     return ctx.expjpi(2*ctx.mpf(k)/n)
 
 @defun
-def root(ctx, x, n, k=0):
+def root(ctx, z, n, k=0):
     n = int(n)
-    x = ctx.convert(x)
+    z = ctx.convert(z)
     if k:
         # Special case: there is an exact real root
-        if (n & 1 and 2*k == n-1) and (not ctx.im(x)) and (ctx.re(x) < 0):
-            return -ctx.root(-x, n)
+        if (n & 1 and 2*k == n-1) and (not ctx.im(z)) and (ctx.re(z) < 0):
+            return -ctx.root(-z, n)
         # Multiply by root of unity
         prec = ctx.prec
         try:
             ctx.prec += 10
-            v = ctx.root(x, n, 0) * ctx._rootof1(k, n)
+            v = ctx.root(z, n, 0) * ctx._rootof1(k, n)
         finally:
             ctx.prec = prec
         return +v
-    return ctx._nthroot(x, n)
+    return ctx._nthroot(z, n)
 
 @defun
 def unitroots(ctx, n, primitive=False):
